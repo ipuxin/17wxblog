@@ -9,6 +9,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
+use common\models\Comment;
 
 AppAsset::register($this);
 ?>
@@ -28,17 +29,22 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => 'ipuxin-脚印',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => '文章管理', 'url' => ['/post/index']],
+        ['label' => '评论管理', 'url' => ['/comment/index']],
+        '<li><span class="badge">'.Comment::getPengdingCommentCount().'</span></li>',
+        ['label' => '标签管理', 'url' => ['/tag/index']],
+        ['label' => '用户管理', 'url' => ['/user/index']],
+        ['label' => '管理员', 'url' => ['/adminuser/index']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => '登录', 'url' => ['/site/login']];
     } else {
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
